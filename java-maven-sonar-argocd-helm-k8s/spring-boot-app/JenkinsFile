@@ -29,11 +29,12 @@ pipeline {
         }
       }
     }
+    stages {
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "gajananbarure/ultimate:latest"
-        // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
-       // REGISTRY_CREDENTIALS = credentials('docker-cred')
+        DOCKER_IMAGE = "gajananbarure/java_awesome-cicd:${BUILD_NUMBER}"
+        REGISTRY_CREDENTIALS = credentials('dockerHub')
+      }
 
       }
       steps {
