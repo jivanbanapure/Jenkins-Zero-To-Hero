@@ -37,7 +37,8 @@ pipeline {
                 script {
                     sh "cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && docker build -t ${DOCKER_IMAGE} ."
                     docker.withRegistry('https://index.docker.io/v2/', 'docker-cred') {
-                        sh "cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && docker push ${DOCKER_IMAGE}"
+                    // Your docker push and other Docker-related steps here
+                      sh "docker push jivanbanapure/ultimate-cicd:7"
                     }
                 }
             }
