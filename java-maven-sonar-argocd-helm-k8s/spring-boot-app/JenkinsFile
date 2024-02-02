@@ -32,14 +32,20 @@ pipeline {
                 }
             }
         }
+stages {
         stage('Build and Push Docker Image') {
+            environment {
+                DOCKER_IMAGE = "jivanbanapure/ultimate-cicd:latest"
+                NEW_TAG = "v1.0"  // Replace with the desired new tag
+            }
             steps {
                 script {
-                    sh "cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && docker build -t ${DOCKER_IMAGE} ."
+                    // Tagging the existing image with a new tag
+                    docker.tag("${DOCKER_IMAGE}", "${DOCKER_IMAGE}-${NEW_TAG}")
+                    
+                    // Push the newly tagged image to the Docker registry
                     docker.withRegistry('https://index.docker.io/v2/', 'docker-cred') {
-                    // Your docker push and other Docker-related steps here
-                      sh "docker tag  jivanbanapure/ultimate-cicd:latest"
-                      sh "docker push jivanbanapure/ultimate-cicd:latest"
+                        sh "docker push ${DOCKER_IMAGE}-${NEW_TAG}"
                     }
                 }
             }
