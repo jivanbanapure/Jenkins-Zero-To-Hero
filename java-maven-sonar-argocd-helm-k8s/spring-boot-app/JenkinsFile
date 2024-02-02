@@ -50,6 +50,7 @@ stages {
                 }
             }
         }
+    }
         stage('Update Deployment File') {
             steps {
                 withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
